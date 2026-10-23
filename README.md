@@ -1,4 +1,56 @@
-#  Analyse Google Trends de 5 mots-clés
+<div align="center">
+
+# Google Trends Analytics
+### Analyse des tendances de recherche · Data Visualization · Streamlit
+
+**Un pipeline de données et une application interactive pour comparer cinq sujets à travers le temps, les pays et les continents.**
+
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white) ![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white) ![Google Trends](https://img.shields.io/badge/Google-Trends-4285F4?logo=google&logoColor=white)
+
+</div>
+
+---
+
+## Le projet en un coup d'œil
+
+| Mots-clés analysés | Échelle | Séries temporelles | Analyse géographique |
+|:---:|:---:|:---:|:---:|
+| **5** | **Mondiale** | **3 ans** | **Pays et continents** |
+
+**Sujets étudiés :** Intelligence artificielle · Crypto · Netflix · Tesla · ChatGPT
+
+> **À savoir :** Google Trends fournit des indices relatifs de popularité (0 à 100), et non le nombre réel de recherches. Les comparaisons doivent être interprétées dans ce cadre.
+
+## Aperçu des visualisations
+
+### Évolution des recherches
+
+![Évolution temporelle des tendances](outputs/figures_premium_dark/01_search_momentum_dark.png)
+
+### Carte mondiale des mots-clés dominants
+
+![Carte mondiale des tendances](outputs/figures_premium_dark/03_world_leaders_dark.png)
+
+| Saisonnalité des recherches | Popularité et domination locale |
+|---|---|
+| ![Heatmap mensuelle](outputs/figures_premium_dark/02_monthly_heatmap_dark.png) | ![Popularité et domination](outputs/figures_premium_dark/04_popularity_vs_dominance_dark.png) |
+
+### Comparaison par continent
+
+![Comparaison des tendances par continent](outputs/figures_premium_dark/05_continental_leaders_dark.png)
+
+## Parcours des données
+
+`Google Trends (pytrends) → Nettoyage et normalisation → Enrichissement géographique → Indicateurs → Visualisations → Application Streamlit`
+
+### Accès rapide
+
+[**Application Streamlit**](app/streamlit_app.py) · [**Scripts de traitement**](scripts/) · [**Graphiques**](outputs/figures_premium_dark/) · [**Dépendances**](requirements.txt)
+
+---
+
+<details>
+<summary><strong>Afficher la documentation complète : méthodologie, données et exécution</strong></summary>
 
 ##  Objectif du projet
 
@@ -225,3 +277,5 @@ Ce projet illustre :
 ##  Auteur
 
 Projet réalisé dans le cadre d’un projet académique en data avec comme participant Can Pekgoz et Vanilla Nirinah Rafidison
+
+</details>
