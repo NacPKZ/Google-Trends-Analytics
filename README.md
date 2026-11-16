@@ -1,281 +1,125 @@
 <div align="center">
 
 # Google Trends Analytics
-### Analyse des tendances de recherche · Data Visualization · Streamlit
 
-**Un pipeline de données et une application interactive pour comparer cinq sujets à travers le temps, les pays et les continents.**
+### Tendances de recherche, visualisation et Streamlit
+
+**Un pipeline Python et une application interactive pour explorer cinq sujets dans le temps et selon les pays.**
 
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white) ![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white) ![Google Trends](https://img.shields.io/badge/Google-Trends-4285F4?logo=google&logoColor=white)
 
 </div>
 
----
+## Présentation
 
-## Le projet en un coup d'œil
+Ce projet académique associe collecte Google Trends, préparation de données, enrichissement géographique et visualisation Streamlit.
 
-| Mots-clés analysés | Échelle | Séries temporelles | Analyse géographique |
-|:---:|:---:|:---:|:---:|
-| **5** | **Mondiale** | **3 ans** | **Pays et continents** |
+Les cinq mots-clés étudiés sont **intelligence artificielle, crypto, Netflix, Tesla et ChatGPT**. Google Trends fournit des indices relatifs de 0 à 100, pas des volumes de recherches.
 
-**Sujets étudiés :** Intelligence artificielle · Crypto · Netflix · Tesla · ChatGPT
+[Application et guide](app/README.md) | [Scripts Python](scripts/) | [Graphiques](outputs/figures_premium_dark/) | [Dépendances](requirements.txt)
 
-> **À savoir :** Google Trends fournit des indices relatifs de popularité (0 à 100), et non le nombre réel de recherches. Les comparaisons doivent être interprétées dans ce cadre.
+## Périodes étudiées
+
+| Extraction | Période configurée | Périmètre |
+|---|---|---|
+| Séries temporelles | Du 1er janvier 2023 au 1er janvier 2026 | Cinq mots-clés interrogés ensemble, au niveau mondial |
+| Indices géographiques | Du 1er janvier 2025 au 1er janvier 2026 | Une requête distincte par mot-clé, par pays |
+
+Ces périodes correspondent aux paramètres de `scripts/collect_trends.py`. Le dépôt conserve des extractions et des fichiers préparés ; il ne décrit pas une actualisation permanente.
 
 ## Aperçu des visualisations
 
-### Évolution des recherches
+### Évolution temporelle
 
-![Évolution temporelle des tendances](outputs/figures_premium_dark/01_search_momentum_dark.png)
+![Évolution des indices de recherche](outputs/figures_premium_dark/01_search_momentum_dark.png)
 
-### Carte mondiale des mots-clés dominants
-
-![Carte mondiale des tendances](outputs/figures_premium_dark/03_world_leaders_dark.png)
-
-| Saisonnalité des recherches | Popularité et domination locale |
+| Matrice mensuelle | Comparaison exploratoire des indices |
 |---|---|
-| ![Heatmap mensuelle](outputs/figures_premium_dark/02_monthly_heatmap_dark.png) | ![Popularité et domination](outputs/figures_premium_dark/04_popularity_vs_dominance_dark.png) |
+| ![Indices par mois](outputs/figures_premium_dark/02_monthly_heatmap_dark.png) | ![Indice maximal et écart entre indices](outputs/figures_premium_dark/04_popularity_vs_dominance_dark.png) |
 
-### Comparaison par continent
+### Cartographie exploratoire
 
-![Comparaison des tendances par continent](outputs/figures_premium_dark/05_continental_leaders_dark.png)
+![Carte des indices sélectionnés par l'algorithme](outputs/figures_premium_dark/03_world_leaders_dark.png)
 
-## Parcours des données
+![Comparaison exploratoire par continent](outputs/figures_premium_dark/05_continental_leaders_dark.png)
 
-`Google Trends (pytrends) → Nettoyage et normalisation → Enrichissement géographique → Indicateurs → Visualisations → Application Streamlit`
+Les figures géographiques utilisent des indices provenant de requêtes séparées. Les notions de « leader » et de « domination » décrivent le calcul exploratoire du projet, pas un classement fiable des volumes de recherche entre sujets.
 
-### Accès rapide
+## Étapes du traitement
 
-[**Application Streamlit**](app/streamlit_app.py) · [**Scripts de traitement**](scripts/) · [**Graphiques**](outputs/figures_premium_dark/) · [**Dépendances**](requirements.txt)
+| Étape | Fichier | Travail réalisé |
+|---|---|---|
+| Collecte | `scripts/collect_trends.py` | Interrogation de Google Trends avec pytrends et export CSV |
+| Préparation | `scripts/clean_merge.py` | Mise au format long, harmonisation des pays et enrichissement géographique |
+| Indicateurs | `scripts/country_insights.py` | Calcul des deux meilleurs indices et de leur écart par pays |
+| Figures | `scripts/slides_graphs.py` | Production des cinq figures de présentation |
+| Exploration | `app/streamlit_app.py` | Filtres, séries temporelles, cartes, comparaisons et résumé calculé |
 
----
+## Organisation du dépôt
 
-<details>
-<summary><strong>Afficher la documentation complète : méthodologie, données et exécution</strong></summary>
+| Emplacement | Contenu |
+|---|---|
+| `data/raw/` | Extractions Google Trends |
+| `data/kaggle/country_metadata.csv` | Métadonnées pays utilisées pour l'enrichissement |
+| `data/processed/` | Données préparées et indicateurs |
+| `scripts/` | Collecte, préparation, indicateurs et figures |
+| `app/` | Application et documentation d'utilisation |
+| `outputs/figures_premium_dark/` | Cinq graphiques PNG |
 
-##  Objectif du projet
+## Lancer l'application
 
-Ce projet vise à analyser et comparer l’intérêt relatif pour 5 mots-clés à l’échelle mondiale, en combinant :
+Avec Git et Python disponibles :
 
-- des données issues de Google Trends
-- un enrichissement par métadonnées pays (type Kaggle)
-- des visualisations interactives via Streamlit
-
-L’objectif est de construire une pipeline data complète allant de la collecte à l’interprétation.
-
----
-
-##  Problématique
-
-Comment comparer l’intérêt pour différents mots-clés :
-
-- dans le temps  
-- selon les pays  
-- et selon les zones géographiques  
-
-tout en tenant compte du fait que Google Trends fournit des données relatives (0–100) et non absolues ?
-
----
-
-##  Architecture du projet
-
-##  Structure du projet
-
+```bash
+git clone https://github.com/NacPKZ/Google-Trends-Analytics.git
+cd Google-Trends-Analytics
+python -m venv .venv
 ```
-projet_trends/
-│
-├── data/
-│   ├── raw/                  # données brutes Google Trends
-│   ├── processed/            # datasets nettoyés et enrichis
-│   └── kaggle/               # métadonnées pays
-│
-├── scripts/
-│   ├── collect_trends.py
-│   ├── clean_merge.py
-│   ├── country_insights.py
-│   └── graphs_final.py
-│
-├── app/
-│   └── streamlit_app.py
-│
-├── outputs/
-│   └── figures/
-│
-├── requirements.txt
-└── README.md
+
+Activer `.venv` avec `.\.venv\Scripts\Activate.ps1` sous PowerShell, ou `source .venv/bin/activate` sous Linux et macOS.
+
+```bash
+python -m pip install -r requirements.txt
+python -m streamlit run app/streamlit_app.py
 ```
----
 
-##  Pipeline de traitement
+Les fichiers préparés sont fournis dans le dépôt. Ils permettent d'ouvrir l'application sans relancer la collecte. Voir le [guide de l'application](app/README.md) pour les métriques et les fichiers attendus.
 
-### 1. Collecte des données
+## Régénérer les données
 
-Script : collect_trends.py
+Cette étape est facultative pour consulter les données versionnées. Elle interroge un service externe et remplace les sorties des scripts :
 
-- récupération via pytrends
-- 5 mots-clés :
-  - intelligence artificielle
-  - crypto
-  - Netflix
-  - Tesla
-  - ChatGPT
+```bash
+python scripts/collect_trends.py
+python scripts/clean_merge.py
+python scripts/country_insights.py
+```
 
-Deux datasets :
+Pour générer les graphiques de présentation :
 
-- trends_time.csv
-  - évolution temporelle (3 ans)
+```bash
+python scripts/slides_graphs.py
+```
 
-- trends_country.csv
-  - distribution géographique (1 an)
+L'export PNG de Plotly nécessite un moteur d'export compatible, notamment Kaleido. Vérifier les dépendances locales si cette étape échoue. Une collecte via pytrends peut également échouer ou être limitée par Google.
 
----
+## Limites
 
-### 2. Nettoyage et structuration
+- Les indices sont relatifs et dépendent du périmètre, de la période et des mots-clés.
+- Les extractions géographiques sont normalisées séparément pour chaque sujet. Leurs valeurs ne permettent pas de conclure qu'un mot-clé est davantage recherché qu'un autre dans un même pays.
+- Les calculs de domination et leurs écarts sont donc exploratoires. Pour comparer les niveaux entre mots-clés, il faudrait reconstruire la collecte sur une échelle commune.
+- Les périodes des séries temporelles et des données géographiques diffèrent.
+- La langue des mots-clés, les métadonnées pays et le traitement des valeurs manquantes influencent les résultats.
+- La collecte repose sur pytrends, une interface non officielle. Cette revue documentaire ne constitue pas une réexécution du pipeline.
 
-Script : clean_merge.py
+## Compétences travaillées
 
-Transformations :
+Collecte et préparation Python, fusion de sources, données géographiques, calcul d'indicateurs, graphiques Plotly et application Streamlit. Le projet permet aussi de discuter les conditions nécessaires pour comparer des indices normalisés.
 
-- conversion en format long
-- normalisation des noms de pays
-- mapping FR → EN
-- gestion des valeurs manquantes
+## Évolutions possibles
 
----
+Revoir le protocole de collecte géographique, documenter les contrôles qualité et les métadonnées de chaque extraction, puis ajouter des tests et des exports depuis l'application.
 
-### 3. Enrichissement des données
+## Auteurs
 
-Ajout de métadonnées pays :
-
-- code ISO3
-- continent
-- région
-
- Permet :
-
-- cartes interactives
-- agrégations géographiques
-- analyses comparatives
-
----
-
-### 4. Calcul des indicateurs
-
-Script : country_insights.py
-
-Variables créées :
-
-- mot_cle_dominant
-- score_max
-- score_2eme
-- ecart_top2
-
- Permet d’identifier :
-
-- le mot-clé dominant par pays
-- l’intensité de domination
-- la concurrence entre mots-clés
-
----
-
-### 5. Visualisation
-
-#### Application Streamlit
-
-L’application permet :
-
-- sélection de mots-clés
-- filtrage par continent
-- visualisation interactive :
-  - courbes temporelles
-  - top pays
-  - carte mondiale
-  - indicateurs clés
-
----
-
-##  Graphes utilisés pour les slides
-
-1. Search Momentum
-→ montre l’évolution globale et les pics d’intérêt dans le temps
-
-2. Monthly Heatmap
-→ met en évidence les périodes fortes et les tendances saisonnières
-
-3. World Leaders
-→ visualise le mot-clé dominant dans chaque pays
-
-4. Popularity vs Dominance
-→ compare la popularité d’un mot-clé et sa domination locale
-
-5. Continental Leaders
-→ identifie le mot-clé le plus fort en moyenne par continent
-
-
-##  Limites du projet
-
-- Google Trends fournit un score relatif (0–100)  
-- pas de volume absolu de recherche  
-- dépendance à une API non officielle (pytrends)  
-- qualité variable des données pays  
-
----
-
-##  Lancer le projet
-
-### 1. Installer les dépendances
-
-bash pip install -r requirements.txt 
-
-### 2. Collecter les données
-
-bash python scripts/collect_trends.py 
-
-### 3. Nettoyer et enrichir
-
-bash python scripts/clean_merge.py 
-
-### 4. Générer les insights
-
-bash python scripts/country_insights.py 
-
-### 5. Lancer l’application
-
-bash python -m streamlit run app/streamlit_app.py 
-
----
-
-##  Résultats principaux
-
-- certains mots-clés dominent largement selon les zones géographiques  
-- la popularité varie fortement selon les pays  
-- certains mots-clés présentent une distribution homogène  
-- d’autres sont très localisés  
-
----
-
-##  Apports du projet
-
-Ce projet illustre :
-
-- la construction d’une pipeline data complète  
-- l’intégration de sources multiples  
-- la transformation de données brutes en indicateurs  
-- la visualisation et l’interprétation de données  
-
----
-
-##  Améliorations possibles
-
-- ajout d’autres mots-clés  
-- intégration de nouvelles sources de données  
-- analyse de tendances plus avancée  
-- prévision (time series)  
-- déploiement web de l’application  
-
----
-
-##  Auteur
-
-Projet réalisé dans le cadre d’un projet académique en data avec comme participant Can Pekgoz et Vanilla Nirinah Rafidison
-
-</details>
+Projet académique réalisé par **Can Pekgoz** et **Vanilla Nirinah Rafidison**.
